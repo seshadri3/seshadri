@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seshadri - Shelf Life Pro</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
+body{margin:0;background:linear-gradient(135deg,#000428,#004e92);min-height:100vh;font-family:'Poppins',Arial;padding:15px;display:flex;justify-content:center;align-items:center}
+.card{max-width:430px;width:100%;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.4)}
+.header{background:linear-gradient(90deg,#000,#1a1a1a);color:#fff;padding:20px;text-align:center;position:relative}
+.header h1{margin:0;font-size:22px;letter-spacing:1px}
+.header h1 span{color:#00ff88}
+.header p{margin:5px 0 0;font-size:11px;opacity:.7;letter-spacing:3px}
+.badge{position:absolute;top:10px;right:15px;background:#00ff88;color:#000;font-size:10px;padding:3px 8px;border-radius:20px;font-weight:800}
+.inputs{padding:22px}
+label{font-size:11px;font-weight:800;color:#555;letter-spacing:1px}
+input{width:100%;padding:13px;margin:6px 0 14px;border:2px solid #eee;border-radius:12px;font-size:14px;outline:none;transition:.3s}
+input:focus{border-color:#004e92}
+.btn{width:100%;padding:14px;background:linear-gradient(90deg,#000428,#004e92);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;letter-spacing:1px}
+.result{margin-top:18px;background:#f8fff8;border:2px solid #00ff88;border-radius:14px;padding:16px;white-space:pre-line;line-height:1.8;font-size:13px;display:none}
+.blink{animation:blink 0.9s infinite;font-weight:800;padding:2px 8px;border-radius:6px;display:inline-block}
+@keyframes blink{0%{background:#ff0000;color:#fff}50%{background:#ffff00;color:#000}100%{background:#ff0000;color:#fff}}
+.footer{text-align:center;padding:12px;font-size:10px;color:#888;letter-spacing:2px;background:#fafafa}
+.seshadri{color:#004e92;font-weight:800}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="header">
+<div class="badge">PRO</div>
+<h1>S.SESHADRI</h1>
+<p>SHELF LIFE CALCULATOR</p>
+</div>
+<div class="inputs">
+<label>📦 PACK DATE</label>
+<input type="date" id="pack">
+
+<label>⏰ USE BY / EXPIRY DATE</label>
+<input type="date" id="expiry">
+
+<button class="btn" onclick="calc()">SHELF LIFE CALCULATE</button>
+
+<div id="out" class="result"></div>
+</div>
+<div class="footer">Designed for <span class="seshadri">SESHADRI</span> | Daily Use System</div>
+</div>
+
+<script>
+function calc(){
+let pv=document.getElementById('pack').value;
+let uv=document.getElementById('expiry').value;
+if(!pv||!uv){alert("Enter both dates - Seshadri");return}
+let pd=new Date(pv);
+let ud=new Date(uv);
+let days=Math.ceil((ud-pd)/(1000*60*60*24));
+let months=Math.round(days/30);
+let rdDays=months*3;
+let rd=new Date(ud);
+rd.setDate(ud.getDate()-rdDays);
+let fmt=d=>d.toLocaleDateString('en-GB');
+let long=d=>d.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+let html=`- *Pack: ${fmt(pd)}*
+- *Use By: ${fmt(ud)}*
+
+*Shelf Life = ${days} Days = ${months} Months*
+
+*Your Formula: ${months} Months x 3 Days = ${rdDays} Days*
+
+*When to remove:*
+*${fmt(ud)} - ${rdDays} days = <span class="blink">${fmt(rd)}</span>*
+
+This should have been removed on *<span class="blink">${long(rd)}</span>*.
+
+S.Seshadri
+<span style="font-size:10px;opacity:.6">Powered by SESHADRI </span>`;
+let div=document.getElementById('out');
+div.style.display='block';
+div.innerHTML=html;
+}
+</script>
+</body>
+</html>
