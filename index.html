@@ -2,81 +2,106 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seshadri - Shelf Life Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seshadri Pro Interface</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
-body{margin:0;background:linear-gradient(135deg,#000428,#004e92);min-height:100vh;font-family:'Poppins',Arial;padding:15px;display:flex;justify-content:center;align-items:center}
-.card{max-width:430px;width:100%;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.4)}
-.header{background:linear-gradient(90deg,#000,#1a1a1a);color:#fff;padding:20px;text-align:center;position:relative}
-.header h1{margin:0;font-size:22px;letter-spacing:1px}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#1e3c72,#000428 70%);font-family:'Poppins',sans-serif;display:flex;justify-content:center;align-items:center;padding:20px}
+.card{width:100%;max-width:440px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.header{background:linear-gradient(135deg,#000000,#0f2027);padding:24px 22px;color:#fff;position:relative}
+.header h1{margin:0;font-size:24px;font-weight:800;letter-spacing:1px}
 .header h1 span{color:#00ff88}
-.header p{margin:5px 0 0;font-size:11px;opacity:.7;letter-spacing:3px}
-.badge{position:absolute;top:10px;right:15px;background:#00ff88;color:#000;font-size:10px;padding:3px 8px;border-radius:20px;font-weight:800}
-.inputs{padding:22px}
-label{font-size:11px;font-weight:800;color:#555;letter-spacing:1px}
-input{width:100%;padding:13px;margin:6px 0 14px;border:2px solid #eee;border-radius:12px;font-size:14px;outline:none;transition:.3s}
-input:focus{border-color:#004e92}
-.btn{width:100%;padding:14px;background:linear-gradient(90deg,#000428,#004e92);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;letter-spacing:1px}
-.result{margin-top:18px;background:#f8fff8;border:2px solid #00ff88;border-radius:14px;padding:16px;white-space:pre-line;line-height:1.8;font-size:13px;display:none}
-.blink{animation:blink 0.9s infinite;font-weight:800;padding:2px 8px;border-radius:6px;display:inline-block}
-@keyframes blink{0%{background:#ff0000;color:#fff}50%{background:#ffff00;color:#000}100%{background:#ff0000;color:#fff}}
-.footer{text-align:center;padding:12px;font-size:10px;color:#888;letter-spacing:2px;background:#fafafa}
-.seshadri{color:#004e92;font-weight:800}
+.header p{margin:4px 0 0;font-size:11px;letter-spacing:4px;opacity:.6}
+.badge{position:absolute;top:18px;right:18px;background:#00ff88;color:#000;font-size:10px;font-weight:800;padding:5px 12px;border-radius:20px}
+.body{padding:22px}
+.label{font-size:11px;font-weight:700;color:#555;letter-spacing:1px;display:flex;justify-content:space-between}
+.input-box{position:relative;margin:6px 0 16px}
+.input-box input{width:100%;padding:14px 14px 14px 42px;border:2px solid #e9e9e9;border-radius:14px;font-size:14px;font-weight:600;outline:none;transition:.3s;background:#fff}
+.input-box input:focus{border-color:#00ff88;box-shadow:0 0 0 4px rgba(0,255,136,.15)}
+.icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px}
+.btn{width:100%;padding:15px;background:linear-gradient(90deg,#000428,#004e92);color:#fff;border:none;border-radius:14px;font-weight:800;font-size:14px;letter-spacing:1px;cursor:pointer;transition:.3s}
+.btn:active{transform:scale(.98)}
+.result{margin-top:18px;display:none;animation:pop .4s ease}
+@keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{background:#fff;border:1px solid #eee;border-radius:14px;padding:12px;text-align:center}
+.stat small{font-size:10px;color:#888;letter-spacing:1px}
+.stat b{display:block;font-size:16px;margin-top:2px}
+.stat.total{grid-column:span 2;background:linear-gradient(135deg,#000428,#004e92);color:#fff;border:none}
+.bar{height:16px;background:#eee;border-radius:20px;display:flex;overflow:hidden;margin:12px 0}
+.fill-u{background:linear-gradient(90deg,#ff416c,#ff4b2b);transition:width .8s ease}
+.fill-r{background:linear-gradient(90deg,#00ff88,#00d26a);transition:width .8s ease}
+.per-box{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.per{padding:14px;border-radius:14px;text-align:center;font-weight:800}
+.per span{font-size:20px;display:block}
+.used{background:#ffebee;color:#c62828;border:2px solid #ffcdd2}
+.remain{background:#e8f5e9;color:#1b5e20;border:2px solid #00ff88}
+.remove-alert{margin-top:12px;background:#000;color:#fff;border-radius:14px;padding:12px;text-align:center;font-size:12px}
+.remove-alert b{color:#00ff88}
+.blink{animation:blink .9s infinite;padding:4px 10px;border-radius:8px;font-weight:800;margin-left:6px}
+@keyframes blink{0%{background:red;color:#fff}50%{background:yellow;color:#000}100%{background:red;color:#fff}}
+.footer{text-align:center;padding:14px;font-size:10px;color:#999;letter-spacing:2px;background:#fafafa}
+.footer b{color:#004e92}
 </style>
 </head>
 <body>
 <div class="card">
 <div class="header">
-<div class="badge">PRO</div>
-<h1>S.SESHADRI</h1>
-<p>SHELF LIFE CALCULATOR</p>
+<div class="badge">LIVE %</div>
+<h1>S.SESHADRI <span></span></h1>
+<p>SHELF LIFE SYSTEM</p>
 </div>
-<div class="inputs">
-<label>📦 PACK DATE</label>
-<input type="date" id="pack">
+<div class="body">
+<div class="label"><span>📦 PACK DATE</span><span id="packTxt" style="opacity:.5"></span></div>
+<div class="input-box"><span class="icon">📅</span><input type="date" id="pack" oninput="calc()"></div>
 
-<label>⏰ USE BY / EXPIRY DATE</label>
-<input type="date" id="expiry">
+<div class="label"><span>⏰ EXPIRY DATE</span><span id="expTxt" style="opacity:.5"></span></div>
+<div class="input-box"><span class="icon">⏳</span><input type="date" id="expiry" oninput="calc()"></div>
 
-<button class="btn" onclick="calc()">SHELF LIFE CALCULATE</button>
+<button class="btn" onclick="calc()">✨ CALCULATE SHELF LIFE</button>
 
 <div id="out" class="result"></div>
 </div>
-<div class="footer">Designed for <span class="seshadri">SESHADRI</span> | Daily Use System</div>
+<div class="footer">Designed for <b>SESHADRI</b> | Premium Daily Use</div>
 </div>
 
 <script>
+function parseDate(s){let[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function diff(a,b){return Math.round((b-a)/86400000)}
 function calc(){
-let pv=document.getElementById('pack').value;
-let uv=document.getElementById('expiry').value;
-if(!pv||!uv){alert("Enter both dates - Seshadri");return}
-let pd=new Date(pv);
-let ud=new Date(uv);
-let days=Math.ceil((ud-pd)/(1000*60*60*24));
-let months=Math.round(days/30);
-let rdDays=months*3;
-let rd=new Date(ud);
-rd.setDate(ud.getDate()-rdDays);
+let pv=pack.value, ev=expiry.value;
+if(!pv||!ev) return;
+let pd=parseDate(pv), ud=parseDate(ev);
+let today=new Date(); today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+let total=diff(pd,ud); if(total<=0) return;
+let remain=diff(today,ud); let used=diff(pd,today);
+if(remain<0) remain=0; if(used<0) used=0; if(used>total) used=total;
+let months=Math.round(total/30);
+let removeBefore=months*3;
+let rd=new Date(ud); rd.setDate(rd.getDate()-removeBefore);
+let usedPer=((used/total)*100).toFixed(1); let remPer=(100-usedPer).toFixed(1);
 let fmt=d=>d.toLocaleDateString('en-GB');
-let long=d=>d.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
-let html=`- *Pack: ${fmt(pd)}*
-- *Use By: ${fmt(ud)}*
 
-*Shelf Life = ${days} Days = ${months} Months*
+document.getElementById('packTxt').innerText=fmt(pd);
+document.getElementById('expTxt').innerText=fmt(ud);
 
-*Your Formula: ${months} Months x 3 Days = ${rdDays} Days*
-
-*When to remove:*
-*${fmt(ud)} - ${rdDays} days = <span class="blink">${fmt(rd)}</span>*
-
-This should have been removed on *<span class="blink">${long(rd)}</span>*.
-
-S.Seshadri
-<span style="font-size:10px;opacity:.6">Powered by SESHADRI </span>`;
-let div=document.getElementById('out');
-div.style.display='block';
-div.innerHTML=html;
+let out=document.getElementById('out');
+out.style.display='block';
+out.innerHTML=`
+<div class="stats">
+<div class="stat total"><small>TOTAL SHELF LIFE</small><b>${total} Days • ${months} Months</b></div>
+<div class="stat"><small>USED DAYS</small><b>${used} Days</b></div>
+<div class="stat"><small>REMAINING DAYS</small><b>${remain} Days</b></div>
+</div>
+<div class="bar"><div class="fill-u" style="width:${usedPer}%"></div><div class="fill-r" style="width:${remPer}%"></div></div>
+<div class="per-box">
+<div class="per used"><small>USED</small><span>${usedPer}%</span></div>
+<div class="per remain"><small>REMAINING</small><span>${remPer}%</span></div>
+</div>
+<div class="remove-alert">Remove Before <b>${removeBefore} Days</b> • Date: <span class="blink">${fmt(rd)}</span></div>
+<div style="text-align:center;margin-top:8px;font-size:10px;opacity:.6">Balanced: ${usedPer}% + ${remPer}% = 100% • Today: ${fmt(today)}</div>
+`;
 }
 </script>
 </body>
