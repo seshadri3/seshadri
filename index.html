@@ -10,24 +10,24 @@
 body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#1e3c72,#000428 70%);font-family:'Poppins',sans-serif;display:flex;justify-content:center;align-items:center;padding:20px}
 .card{width:100%;max-width:440px;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .header{background:linear-gradient(135deg,#000000,#0f2027);padding:18px 22px;color:#fff;position:relative;display:flex;align-items:center;gap:12px}
-.logo-box{width:56px;height:56px;background:#fff;border-radius:12px;display:flex;justify-content:center;align-items:center;padding:6px;flex-shrink:0}
+.logo-box{width:56px;height:56px;background:#fff;border-radius:12px;display:flex;justify-content:center;align-items:center;padding:6px}
 .logo-box img{width:100%;height:100%;object-fit:contain}
-.header-text h1{margin:0;font-size:24px;font-weight:800;letter-spacing:1px}
-.header-text p{margin:2px 0 0;font-size:11px;letter-spacing:3px;opacity:.6}
+.header-text h1{margin:0;font-size:24px;font-weight:800}
 .badge{position:absolute;top:10px;right:12px;background:#00ff88;color:#000;font-size:9px;font-weight:800;padding:4px 10px;border-radius:20px}
 .body{padding:22px}
 .label{font-size:11px;font-weight:700;color:#555;display:flex;justify-content:space-between;margin-bottom:4px}
 .input-box{position:relative;margin-bottom:16px}
 .input-box input{width:100%;padding:14px 14px 14px 42px;border:2px solid #e5e5e5;border-radius:14px;font-size:14px;font-weight:600;outline:none}
-.input-box input:focus{border-color:#00ff88}
 .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px}
-.btn{width:100%;padding:15px;background:linear-gradient(90deg,#000428,#004e92);color:#fff;border:none;border-radius:14px;font-weight:800;letter-spacing:1px;cursor:pointer}
+.btn{width:100%;padding:15px;background:linear-gradient(90deg,#000428,#004e92);color:#fff;border:none;border-radius:14px;font-weight:800;cursor:pointer}
 .result{margin-top:18px;display:none}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .stat{background:#fff;border:1px solid #eee;border-radius:14px;padding:12px;text-align:center}
 .stat small{font-size:10px;color:#888}
-.stat b{display:block;font-size:16px;margin-top:2px}
-.stat.total{grid-column:span 2;background:linear-gradient(135deg,#000428,#004e92);color:#fff;border:none}
+.stat b{display:block;font-size:15px;margin-top:2px}
+.stat.total{grid-column:span 2;background:linear-gradient(135deg,#000428,#004e92);color:#fff;border:none;padding:18px}
+.stat.total b{font-size:24px}
+.stat.total small{color:#8ec6ff;font-size:11px;margin-top:6px;display:block}
 .bar{height:16px;background:#eee;border-radius:20px;display:flex;overflow:hidden;margin:12px 0}
 .fill-u{background:linear-gradient(90deg,#ff416c,#ff4b2b)}
 .fill-r{background:linear-gradient(90deg,#00ff88,#00d26a)}
@@ -37,31 +37,20 @@ body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#1e3c72,
 .used{background:#ffebee;color:#c62828;border:2px solid #ffcdd2}
 .remain{background:#e8f5e9;color:#1b5e20;border:2px solid #00ff88}
 .remove-alert{margin-top:12px;background:#000;color:#fff;border-radius:14px;padding:12px;text-align:center;font-size:12px}
-.remove-alert b{color:#00ff88}
 .blink{animation:blink 0.9s infinite;padding:4px 10px;border-radius:8px;margin-left:6px;font-weight:800}
 @keyframes blink{0%{background:red;color:#fff}50%{background:yellow;color:#000}100%{background:red;color:#fff}}
-.footer{text-align:center;padding:14px;font-size:10px;color:#999;background:#fafafa;letter-spacing:1px}
+.comment-box{margin-top:10px;padding:11px;border-radius:10px;text-align:center;font-size:11px;font-weight:800}
+.footer{text-align:center;padding:14px;font-size:10px;color:#999;background:#fafafa}
 .footer b{color:#004e92}
 </style>
 </head>
 <body>
 <div class="card">
-<div class="header">
-<div class="badge">🔴 LIVE %</div>
-<div class="logo-box">
-<img src="https://companieslogo.com/img/orig/DMART.NS-6f885d00.png?t=1746038840" alt="DMART">
-</div>
-<div class="header-text">
-<h1>DMART</h1>
-<p>SHELF LIFE CALCULATOR</p>
-</div>
-</div>
+<div class="header"><div class="badge">🔴 LIVE %</div><div class="logo-box"><img src="https://companieslogo.com/img/orig/DMART.NS-6f885d00.png?t=1746038840"></div><div class="header-text"><h1>DMART</h1><p style="margin:2px 0 0;font-size:11px;letter-spacing:3px;opacity:.6">SHELF LIFE CALCULATOR</p></div></div>
 <div class="body">
-<div class="label"><span>📦 PACK DATE</span><span id="packTxt" style="opacity:.5"></span></div>
-<div class="input-box"><span class="icon">📅</span><input type="date" id="pack" oninput="calc()"></div>
-<div class="label"><span>⏰ EXPIRY DATE</span><span id="expTxt" style="opacity:.5"></span></div>
-<div class="input-box"><span class="icon">⏳</span><input type="date" id="expiry" oninput="calc()"></div>
-<button class="btn" onclick="calc()">✨ TAP SHELF LIFE CALCULATE ✨</button>
+<div class="label"><span>📦 PACK DATE</span><span id="packTxt" style="opacity:.5"></span></div><div class="input-box"><span class="icon">📅</span><input type="date" id="pack" oninput="calc()"></div>
+<div class="label"><span>⏰ EXPIRY DATE</span><span id="expTxt" style="opacity:.5"></span></div><div class="input-box"><span class="icon">⏳</span><input type="date" id="expiry" oninput="calc()"></div>
+<button class="btn" onclick="calc()">CALCULATE</button>
 <div id="out" class="result"></div>
 </div>
 <div class="footer">Designed by <b>S.SESHADRI</b> | 📍 CHITTOOR</div>
@@ -70,24 +59,59 @@ body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#1e3c72,
 function parseDate(s){let[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function diff(a,b){return Math.round((b-a)/86400000)}
 function calc(){
-let pv=document.getElementById('pack').value;
-let ev=document.getElementById('expiry').value;
-if(!pv||!ev) return;
-let pd=parseDate(pv), ud=parseDate(ev);
+let pv=pack.value, ev=expiry.value; if(!pv||!ev) return;
+let pd=parseDate(pv), ed=parseDate(ev);
 let today=new Date(); today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
-let total=diff(pd,ud); if(total<=0){alert('Expiry must be after Pack date');return;}
-let remain=diff(today,ud); let used=diff(pd,today);
-if(remain<0) remain=0; if(used<0) used=0; if(used>total) used=total;
-let months=Math.round(total/30);
-let removeBefore=months*3;
-let rd=new Date(ud); rd.setDate(rd.getDate()-removeBefore);
-let usedPer=((used/total)*100).toFixed(1); let remPer=(100-usedPer).toFixed(1);
+if(ed<pd) return alert('Expiry after Pack');
+
+let total = diff(pd,ed) + 1;
+let used = today<pd ? 0 : today>ed ? total : diff(pd,today) + 1;
+let remain = Math.max(0, total - used);
+
+let monthsExact = (total/30.44).toFixed(1);
+let monthsInt = Math.floor(total/30);
+let yearsInt = Math.floor(total/365);
+
+let detailLine = '';
+if(total >= 365){
+  detailLine = `${yearsInt} Year • ${monthsInt} Months`;
+} else if(total >= 30){
+  detailLine = `${monthsInt} Months`;
+} else {
+  detailLine = `${monthsExact} Months`;
+}
+
+let removeBefore = total <= 7 ? 1 : Math.max(1, Math.round(total/30)) * 3;
+let rd=new Date(ed); rd.setDate(rd.getDate()-removeBefore);
+
+let usedPer = parseFloat(((used/total)*100).toFixed(1));
+let remPer = parseFloat((100 - usedPer).toFixed(1));
 let fmt=d=>d.toLocaleDateString('en-GB');
-document.getElementById('packTxt').innerText=fmt(pd);
-document.getElementById('expTxt').innerText=fmt(ud);
-let out=document.getElementById('out');
-out.style.display='block';
-out.innerHTML='<div class="stats"><div class="stat total"><small>TOTAL SHELF LIFE</small><b>'+total+' Days • '+months+' Months</b></div><div class="stat"><small>USED DAYS</small><b>'+used+' Days</b></div><div class="stat"><small>REMAINING DAYS</small><b>'+remain+' Days</b></div></div><div class="bar"><div class="fill-u" style="width:'+usedPer+'%"></div><div class="fill-r" style="width:'+remPer+'%"></div></div><div class="per-box"><div class="per used"><small>USED</small><span>'+usedPer+'%</span></div><div class="per remain"><small>REMAINING</small><span>'+remPer+'%</span></div></div><div class="remove-alert">Remove Before <b>'+removeBefore+' Days</b> • Date: <span class="blink">'+fmt(rd)+'</span></div><div style="text-align:center;margin-top:8px;font-size:10px;opacity:.6">Balanced: '+usedPer+'% + '+remPer+'% = 100% • Today: '+fmt(today)+'</div>';
+packTxt.innerText=fmt(pd); expTxt.innerText=fmt(ed);
+
+let comment, cColor, cBg, cBorder;
+if(remain<=0){ comment='💀 SHELF LIFE OVER - REMOVE IMMEDIATELY'; cColor='#c62828'; cBg='#ffebee'; cBorder='#ffcdd2'; }
+else if(remain<=removeBefore){ comment='⛔ EXPIRY - REMOVE FIRST'; cColor='#c62828'; cBg='#ffebee'; cBorder='#ffcdd2'; }
+else if(remPer<25){ comment='🔴 LOW CONDITION - EXPIRY SOON'; cColor='#c62828'; cBg='#ffebee'; cBorder='#ffcdd2'; }
+else if(remPer<60){ comment='🟡 MEDIUM CONDITION - SELL IT'; cColor='#856404'; cBg='#fff3cd'; cBorder='#ffe69c'; }
+else{ comment='🟢 HIGH CONDITION - FRESH STOCK'; cColor='#1b5e20'; cBg='#e8f5e9'; cBorder='#00ff88'; }
+
+let out=document.getElementById('out'); out.style.display='block';
+out.innerHTML=`
+<div class="stats">
+  <div class="stat total">
+    <small>TOTAL SHELF LIFE</small>
+    <b>${total} Days</b>
+    <small>${detailLine}</small>
+  </div>
+  <div class="stat"><small>USED</small><b>${used} Days</b></div>
+  <div class="stat"><small>REMAINING</small><b>${remain} Days</b></div>
+</div>
+<div class="bar"><div class="fill-u" style="width:${usedPer}%"></div><div class="fill-r" style="width:${remPer}%"></div></div>
+<div class="per-box"><div class="per used"><small>USED</small><span>${usedPer}%</span></div><div class="per remain"><small>REMAIN</small><span>${remPer}%</span></div></div>
+<div class="comment-box" style="color:${cColor};background:${cBg};border:2px solid ${cBorder}">${comment}</div>
+<div class="remove-alert">Remove Before <b>${removeBefore} Days</b> • <span class="blink">${fmt(rd)}</span></div>
+`;
 }
 </script>
 </body>
