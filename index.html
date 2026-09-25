@@ -58,44 +58,39 @@ body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#1e3c72,
 <script>
 function parseDate(s){let[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function diff(a,b){return Math.round((b-a)/86400000)}
+function getRemoveBefore(total){
+  if(total <= 7) return 1;   // 7 days -> 1 day
+  if(total <= 15) return 2;  // 15 days -> 2 days
+  if(total <= 31) return 3;  // 28,30,31 days -> 3 days
+  return Math.round(total/30) * 3; // 60 days -> 6, 90 days -> 9 etc
+}
 function calc(){
 let pv=pack.value, ev=expiry.value; if(!pv||!ev) return;
 let pd=parseDate(pv), ed=parseDate(ev);
 let today=new Date(); today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
 if(ed<pd) return alert('Expiry after Pack');
-
 let total = diff(pd,ed) + 1;
 let used = today<pd ? 0 : today>ed ? total : diff(pd,today) + 1;
 let remain = Math.max(0, total - used);
-
 let monthsExact = (total/30.44).toFixed(1);
 let monthsInt = Math.floor(total/30);
 let yearsInt = Math.floor(total/365);
-
 let detailLine = '';
-if(total >= 365){
-  detailLine = `${yearsInt} Year • ${monthsInt} Months`;
-} else if(total >= 30){
-  detailLine = `${monthsInt} Months`;
-} else {
-  detailLine = `${monthsExact} Months`;
-}
-
-let removeBefore = total <= 7 ? 1 : Math.max(1, Math.round(total/30)) * 3;
+if(total >= 365){ detailLine = `${yearsInt} Year • ${monthsInt} Months`; } 
+else if(total >= 30){ detailLine = `${monthsInt} Months`; } 
+else { detailLine = `${monthsExact} Months`; }
+let removeBefore = getRemoveBefore(total);
 let rd=new Date(ed); rd.setDate(rd.getDate()-removeBefore);
-
 let usedPer = parseFloat(((used/total)*100).toFixed(1));
 let remPer = parseFloat((100 - usedPer).toFixed(1));
 let fmt=d=>d.toLocaleDateString('en-GB');
 packTxt.innerText=fmt(pd); expTxt.innerText=fmt(ed);
-
 let comment, cColor, cBg, cBorder;
 if(remain<=0){ comment='💀 SHELF LIFE OVER - REMOVE IMMEDIATELY'; cColor='#c62828'; cBg='#ffebee'; cBorder='#ffcdd2'; }
 else if(remain<=removeBefore){ comment='⛔ EXPIRY - REMOVE FIRST'; cColor='#c62828'; cBg='#ffebee'; cBorder='#ffcdd2'; }
 else if(remPer<25){ comment='🔴 LOW CONDITION - EXPIRY SOON'; cColor='#c62828'; cBg='#ffebee'; cBorder='#ffcdd2'; }
 else if(remPer<60){ comment='🟡 MEDIUM CONDITION - SELL IT'; cColor='#856404'; cBg='#fff3cd'; cBorder='#ffe69c'; }
 else{ comment='🟢 HIGH CONDITION - FRESH STOCK'; cColor='#1b5e20'; cBg='#e8f5e9'; cBorder='#00ff88'; }
-
 let out=document.getElementById('out'); out.style.display='block';
 out.innerHTML=`
 <div class="stats">
